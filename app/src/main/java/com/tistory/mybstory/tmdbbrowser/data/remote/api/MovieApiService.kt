@@ -1,7 +1,7 @@
 package com.tistory.mybstory.tmdbbrowser.data.remote.api
 
-import com.tistory.mybstory.tmdbbrowser.model.api.response.TrendingResponse
-import retrofit2.Call
+import com.tistory.mybstory.tmdbbrowser.model.Title
+import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.TrendingResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,6 +16,10 @@ interface MovieApiService {
         @Query("page") page: Int
     ): Response<TrendingResponse>
 
+    @GET("/3/movie/{movie_id}")
+    suspend fun getMovieById(
+        @Path("movie_id") movieId: Int
+    ): Title
 }
 
 sealed class MediaType {

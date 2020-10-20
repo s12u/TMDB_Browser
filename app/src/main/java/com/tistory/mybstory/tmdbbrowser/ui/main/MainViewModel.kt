@@ -16,22 +16,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 
 class MainViewModel @ViewModelInject constructor(
-     val movieRepository: MovieRepository,
+    private val movieRepository: MovieRepository,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-//    val trendingMoviesFlow = Pager(
-//        PagingConfig(pageSize = 8,
-//            initialLoadSize = 10)
-//    ) {
-//        MediaPagingSource(movieRepository, MediaType.Movie())
-//    }.liveData
-//        .cachedIn(viewModelScope)
-
     val trendingMoviesFlow = Pager(
-        PagingConfig(pageSize = 8,
-            initialLoadSize = 10)
-    ) {
-        MediaPagingSource(movieRepository, MediaType.Movie())
-    }.flow.cachedIn(viewModelScope)
+        PagingConfig(pageSize = 8, initialLoadSize = 10)
+    ) { MediaPagingSource(movieRepository, MediaType.Movie()) }
+        .flow
+        .cachedIn(viewModelScope)
 }

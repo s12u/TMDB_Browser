@@ -8,11 +8,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.tistory.mybstory.tmdbbrowser.R
 import com.tistory.mybstory.tmdbbrowser.base.ui.BaseFragment
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.MediaType
 import com.tistory.mybstory.tmdbbrowser.databinding.FragmentMainBinding
-import com.tistory.mybstory.tmdbbrowser.model.api.request.TrendingRequest
+import com.tistory.mybstory.tmdbbrowser.model.Title
+import com.tistory.mybstory.tmdbbrowser.ui.detail.MovieDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -27,33 +31,27 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        trendingMoviesAdapter = TrendingMoviesAdapter()
+
+        trendingMoviesAdapter = TrendingMoviesAdapter {
+            // TODO: move to detail page
+            handleItemClick(it)
+        }
 
         with(binding) {
             viewModel = mainViewModel
-            rvMoviesTrending.adapter = trendingMoviesAdapter
+            listTrendingMovies.adapter = trendingMoviesAdapter
         }
 
-        launch(Dispatchers.IO) {
-            mainViewModel.trendingMoviesFlow.collectLatest { pagingData->
+        launch {
+            mainViewModel.trendingMoviesFlow.collectLatest { pagingData ->
                 trendingMoviesAdapter.submitData(pagingData)
             }
         }
-
-//        launch {
-//            mainViewModel.movieRepository.getTrendingListByType(
-//                TrendingRequest(
-//                    1,
-//                    MediaType.Movie()
-//                )
-//            )?.results?.forEach {
-//                Timber.e(it.title)
-//            }
-//        }
-
-//        mainViewModel.trendingMoviesFlow.observe(viewLifecycleOwner, Observer {
-//            trendingMoviesAdapter.submitData(lifecycle, it)
-//
-//        })
     }
+
+    private fun handleItemClick(item: Title) =
+        MainFragmentDirections.mainFragmentToMovieDetailFragment(item.id)
+            .also { findNavController().navigate(it) }
+
+
 }

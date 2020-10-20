@@ -1,4 +1,4 @@
-package com.tistory.mybstory.tmdbbrowser.model.api.response
+package com.tistory.mybstory.tmdbbrowser.data.remote.api.response
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Title constructor(
     @field:Json(name = "id")
-    val id: Int?,
+    val id: Int,
     @field:Json(name = "title")
     val title: String,
     @field:Json(name = "poster_path")

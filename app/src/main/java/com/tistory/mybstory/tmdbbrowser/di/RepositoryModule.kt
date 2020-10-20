@@ -10,13 +10,14 @@ import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
 @InstallIn(ApplicationComponent::class)
 @Module
 class RepositoryModule {
 
     @Provides
-    @Reusable
+    @Singleton
     fun provideMovieRepository(
         apiService: MovieApiService,
         jsonConverter: Moshi
