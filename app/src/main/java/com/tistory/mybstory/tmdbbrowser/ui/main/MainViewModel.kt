@@ -8,12 +8,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import androidx.paging.liveData
 import com.tistory.mybstory.tmdbbrowser.data.remote.MediaPagingSource
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.MediaType
 import com.tistory.mybstory.tmdbbrowser.data.repository.MovieRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flowOn
 
 class MainViewModel @ViewModelInject constructor(
     private val movieRepository: MovieRepository,
@@ -22,7 +19,7 @@ class MainViewModel @ViewModelInject constructor(
 
     val trendingMoviesFlow = Pager(
         PagingConfig(pageSize = 8, initialLoadSize = 10)
-    ) { MediaPagingSource(movieRepository, MediaType.Movie()) }
+    ) { MediaPagingSource(movieRepository, MediaType.MOVIE()) }
         .flow
         .cachedIn(viewModelScope)
 }

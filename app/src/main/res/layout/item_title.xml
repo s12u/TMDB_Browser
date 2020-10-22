@@ -7,10 +7,6 @@
         <variable
             name="title"
             type="com.tistory.mybstory.tmdbbrowser.model.Title" />
-
-        <import
-            alias="Extensions"
-            type="com.tistory.mybstory.tmdbbrowser.util.ExtensionsKt" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +19,7 @@
             android:layout_height="130dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:url="@{Extensions.getPosterThumbUrl(title.posterPath)}"/>
+            app:url="@{title.posterUrl}"/>
 
         <TextView
             android:layout_width="wrap_content"

@@ -6,7 +6,9 @@ import androidx.fragment.app.viewModels
 import com.tistory.mybstory.tmdbbrowser.R
 import com.tistory.mybstory.tmdbbrowser.base.ui.BaseFragment
 import com.tistory.mybstory.tmdbbrowser.databinding.FragmentMovieDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>(
     R.layout.fragment_movie_detail
 ) {

@@ -6,6 +6,7 @@ import com.tistory.mybstory.tmdbbrowser.data.remote.api.MovieApiService
 import com.tistory.mybstory.tmdbbrowser.di.ApiModule.Companion.AUTH_TOKEN
 import com.tistory.mybstory.tmdbbrowser.model.Title
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.TrendingResponse
+import com.tistory.mybstory.tmdbbrowser.model.Movie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -13,8 +14,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
-    private val apiService: MovieApiService,
-    private val jsonConverter: Moshi
+    private val apiService: MovieApiService
 ) : MovieRepository {
 
     override suspend fun getTrendingListByTypeForPaging(mediaType: MediaType, page: Int)
@@ -35,8 +35,8 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getMovieById(id: Int): Flow<Title> = flow {
-        emit(apiService.getMovieById(id))
+    override suspend fun getMovieById(id: Int): Flow<Movie> = flow {
+        emit(apiService.getMovieById(id, AUTH_TOKEN))
     }
 
 }
