@@ -7,6 +7,7 @@ import com.tistory.mybstory.tmdbbrowser.di.ApiModule.Companion.AUTH_TOKEN
 import com.tistory.mybstory.tmdbbrowser.model.Title
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.TrendingResponse
 import com.tistory.mybstory.tmdbbrowser.model.Movie
+import com.tistory.mybstory.tmdbbrowser.model.MovieImage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -25,18 +26,29 @@ class MovieRepositoryImpl @Inject constructor(
             AUTH_TOKEN,
             page)
 
-        Timber.e("called!")
         if (response.isSuccessful) {
-            Timber.e("success!")
             return response.body()
         } else {
-            Timber.e("error!")
-            throw Exception("network error")
+            throw IllegalStateException("Api error")
         }
     }
 
     override suspend fun getMovieById(id: Int): Flow<Movie> = flow {
         emit(apiService.getMovieById(id, AUTH_TOKEN))
+    }
+
+    override suspend fun getMovieImages(id: Int): Flow<Map<String, List<MovieImage>>> = flow {
+        val response = apiService.getMovieImagesById(id, AUTH_TOKEN)
+        if (response.isSuccessful) {
+            response.body()?.let {
+                Timber.e("backdrop count: ${it.backdrops.size} poster count : ${it.posters.size}")
+                emit(mapOf("backdrops" to it.backdrops,
+                    "posters" to it.posters)
+                )
+            }
+        } else {
+            throw IllegalStateException("Api error")
+        }
     }
 
 }

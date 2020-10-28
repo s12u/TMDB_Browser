@@ -76,8 +76,6 @@ class TitleViewHolder(
     }
 }
 
-
-
 object TitleDiffCallback : DiffUtil.ItemCallback<Title>() {
     override fun areItemsTheSame(oldItem: Title, newItem: Title): Boolean {
         return oldItem.id == newItem.id

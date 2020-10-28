@@ -12,6 +12,8 @@ data class Movie constructor(
     val title: String,
     @field:Json(name = "poster_path")
     val posterPath: String? = null,
+    @field:Json(name = "backdrop_path")
+    val backdropPath: String? = null,
     @field:Json(name = "overview")
     val overview: String? = null
 ) {

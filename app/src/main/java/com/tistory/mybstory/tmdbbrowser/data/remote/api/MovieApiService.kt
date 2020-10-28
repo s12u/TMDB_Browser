@@ -1,7 +1,9 @@
 package com.tistory.mybstory.tmdbbrowser.data.remote.api
 
+import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.ImageResponse
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.TrendingResponse
 import com.tistory.mybstory.tmdbbrowser.model.Movie
+import com.tistory.mybstory.tmdbbrowser.model.MovieImage
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -21,6 +23,12 @@ interface MovieApiService {
         @Path("movie_id") movieId: Int,
         @Query("api_key") token: String
     ): Movie
+
+    @GET("/3/movie/{movie_id}/images")
+    suspend fun getMovieImagesById(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") token: String
+    ): Response<ImageResponse>
 }
 
 sealed class MediaType {

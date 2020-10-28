@@ -21,6 +21,6 @@ class RepositoryModule {
     fun provideMovieRepository(
         apiService: MovieApiService,
         jsonConverter: Moshi
-    ): MovieRepository = MovieRepositoryImpl(apiService, jsonConverter)
+    ): MovieRepository = MovieRepositoryImpl(apiService)
 
 }

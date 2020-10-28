@@ -5,3 +5,10 @@ fun String?.getPosterThumbUrl(): String {
         "https://image.tmdb.org/t/p/w500$this"
     } else ""
 }
+
+fun String?.getOriginalImageUrl(): String {
+    return if (!isNullOrEmpty()) {
+        "https://image.tmdb.org/t/p/original/$this"
+    } else ""
+}
+
