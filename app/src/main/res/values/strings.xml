@@ -3,4 +3,6 @@
 
 
     <string name="header_text_trending">Trending</string>
+    <string name="header_text_popular">Popular</string>
+    <string name="header_text_top_rated">Top rated</string>
 </resources>

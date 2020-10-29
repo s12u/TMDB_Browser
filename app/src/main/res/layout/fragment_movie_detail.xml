@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintDimensionRatio="W,10:17"
+            app:layout_constraintDimensionRatio="W,100:177"
             app:pagerImagesList="@{viewModel.backdropLiveData}"/>
 
         <ImageView
@@ -30,7 +30,7 @@
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/backdrop_pager"
-            app:layout_constraintDimensionRatio="H,10:13"
+            app:layout_constraintDimensionRatio="H,100:133"
             android:layout_marginStart="32dp"
             android:translationY="-16dp"
             app:url="@{viewModel.movieLiveData.posterUrl}"

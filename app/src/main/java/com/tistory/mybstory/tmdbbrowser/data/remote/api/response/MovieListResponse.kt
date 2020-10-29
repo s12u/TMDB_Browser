@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 import com.tistory.mybstory.tmdbbrowser.model.Title
 
 @JsonClass(generateAdapter = true)
-data class TrendingResponse(
+data class MovieListResponse(
     @field:Json(name = "page")
     val page: Int?,
     @field:Json(name = "total_pages")

@@ -1,9 +1,8 @@
 package com.tistory.mybstory.tmdbbrowser.data.remote.api
 
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.ImageResponse
-import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.TrendingResponse
+import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.MovieListResponse
 import com.tistory.mybstory.tmdbbrowser.model.Movie
-import com.tistory.mybstory.tmdbbrowser.model.MovieImage
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,7 +15,14 @@ interface MovieApiService {
         @Path("type") titleType: String,
         @Query("api_key") token: String,
         @Query("page") page: Int
-    ): Response<TrendingResponse>
+    ): Response<MovieListResponse>
+
+    @GET("/3/movie/{query_type}")
+    suspend fun getMovieListByQueryType(
+        @Path("query_type") queryType: String,
+        @Query("api_key") token: String,
+        @Query("page") page: Int
+    ): Response<MovieListResponse>
 
     @GET("/3/movie/{movie_id}")
     suspend fun getMovieById(
@@ -35,4 +41,11 @@ sealed class MediaType {
     abstract val type: String
     class MOVIE(override val type: String = "movie") : MediaType()
     class TV(override val type: String = "tv") : MediaType()
+}
+
+sealed class MovieQueryType {
+    abstract val type: String
+    class Trending(override val type: String = "trending") : MovieQueryType()
+    class Popular(override val type: String = "popular") : MovieQueryType()
+    class TopRated(override val type: String = "top_rated") : MovieQueryType()
 }

@@ -10,6 +10,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.tistory.mybstory.tmdbbrowser.data.remote.MediaPagingSource
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.MediaType
+import com.tistory.mybstory.tmdbbrowser.data.remote.api.MovieQueryType
 import com.tistory.mybstory.tmdbbrowser.data.repository.MovieRepository
 
 class MainViewModel @ViewModelInject constructor(
@@ -19,7 +20,31 @@ class MainViewModel @ViewModelInject constructor(
 
     val trendingMoviesFlow = Pager(
         PagingConfig(pageSize = 8, initialLoadSize = 10)
-    ) { MediaPagingSource(movieRepository, MediaType.MOVIE()) }
-        .flow
-        .cachedIn(viewModelScope)
+    ) {
+        MediaPagingSource(
+            movieRepository,
+            MediaType.MOVIE(),
+            MovieQueryType.Trending()
+        )
+    }.flow.cachedIn(viewModelScope)
+
+    val popularMoviesFlow = Pager(
+        PagingConfig(pageSize = 8, initialLoadSize = 10)
+    ) {
+        MediaPagingSource(
+            movieRepository,
+            MediaType.MOVIE(),
+            MovieQueryType.Popular()
+        )
+    }.flow.cachedIn(viewModelScope)
+
+    val topRatedMoviesFlow = Pager(
+        PagingConfig(pageSize = 8, initialLoadSize = 10)
+    ) {
+        MediaPagingSource(
+            movieRepository,
+            MediaType.MOVIE(),
+            MovieQueryType.TopRated()
+        )
+    }.flow.cachedIn(viewModelScope)
 }

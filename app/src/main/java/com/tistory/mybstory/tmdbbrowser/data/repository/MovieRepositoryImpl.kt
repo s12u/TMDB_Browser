@@ -1,17 +1,15 @@
 package com.tistory.mybstory.tmdbbrowser.data.repository
 
-import com.squareup.moshi.Moshi
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.MediaType
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.MovieApiService
+import com.tistory.mybstory.tmdbbrowser.data.remote.api.MovieQueryType
 import com.tistory.mybstory.tmdbbrowser.di.ApiModule.Companion.AUTH_TOKEN
-import com.tistory.mybstory.tmdbbrowser.model.Title
-import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.TrendingResponse
+import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.MovieListResponse
 import com.tistory.mybstory.tmdbbrowser.model.Movie
 import com.tistory.mybstory.tmdbbrowser.model.MovieImage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
-import java.lang.Exception
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
@@ -19,13 +17,31 @@ class MovieRepositoryImpl @Inject constructor(
 ) : MovieRepository {
 
     override suspend fun getTrendingListByTypeForPaging(mediaType: MediaType, page: Int)
-            : TrendingResponse? {
+            : MovieListResponse? {
 
         val response = apiService.getTrendingListDailyByType(
             mediaType.type,
             AUTH_TOKEN,
-            page)
+            page
+        )
 
+        if (response.isSuccessful) {
+            return response.body()
+        } else {
+            throw IllegalStateException("Api error")
+        }
+    }
+
+    override suspend fun getMoviesListByQueryTypeForPaging(
+        movieQueryType: MovieQueryType,
+        page: Int
+    ): MovieListResponse? {
+        Timber.e("call by query type $movieQueryType")
+        val response = apiService.getMovieListByQueryType(
+            movieQueryType.type,
+            AUTH_TOKEN,
+            page
+        )
         if (response.isSuccessful) {
             return response.body()
         } else {
@@ -42,8 +58,11 @@ class MovieRepositoryImpl @Inject constructor(
         if (response.isSuccessful) {
             response.body()?.let {
                 Timber.e("backdrop count: ${it.backdrops.size} poster count : ${it.posters.size}")
-                emit(mapOf("backdrops" to it.backdrops,
-                    "posters" to it.posters)
+                emit(
+                    mapOf(
+                        "backdrops" to it.backdrops,
+                        "posters" to it.posters
+                    )
                 )
             }
         } else {
