@@ -3,7 +3,6 @@ package com.tistory.mybstory.tmdbbrowser.data.remote.api.response
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.tistory.mybstory.tmdbbrowser.model.MovieImage
-import com.tistory.mybstory.tmdbbrowser.model.Title
 
 @JsonClass(generateAdapter = true)
 data class ImageResponse(

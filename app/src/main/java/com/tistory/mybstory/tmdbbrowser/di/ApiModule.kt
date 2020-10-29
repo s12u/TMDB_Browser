@@ -5,7 +5,6 @@ import com.tistory.mybstory.tmdbbrowser.data.remote.api.AuthInterceptor
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.MovieApiService
 import dagger.Module
 import dagger.Provides
-import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.OkHttpClient

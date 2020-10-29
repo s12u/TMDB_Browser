@@ -6,10 +6,8 @@ import com.tistory.mybstory.tmdbbrowser.data.repository.MovieRepository
 import com.tistory.mybstory.tmdbbrowser.data.repository.MovieRepositoryImpl
 import dagger.Module
 import dagger.Provides
-import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @InstallIn(ApplicationComponent::class)

@@ -1,13 +1,11 @@
 package com.tistory.mybstory.tmdbbrowser.ui.main
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.tistory.mybstory.tmdbbrowser.R
 import com.tistory.mybstory.tmdbbrowser.databinding.ItemTitleBinding
 import com.tistory.mybstory.tmdbbrowser.model.Title
 

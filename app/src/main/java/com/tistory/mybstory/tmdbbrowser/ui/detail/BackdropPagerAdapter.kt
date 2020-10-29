@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.tistory.mybstory.tmdbbrowser.R
 import com.tistory.mybstory.tmdbbrowser.databinding.ItemBackdropBinding
 import com.tistory.mybstory.tmdbbrowser.model.MovieImage

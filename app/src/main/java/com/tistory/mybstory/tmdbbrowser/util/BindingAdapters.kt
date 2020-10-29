@@ -5,11 +5,8 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.bumptech.glide.TransitionOptions
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
-import com.bumptech.glide.request.transition.DrawableCrossFadeTransition
 import com.tistory.mybstory.tmdbbrowser.model.MovieImage
 import com.tistory.mybstory.tmdbbrowser.ui.detail.BackdropPagerAdapter
 import java.io.InvalidClassException

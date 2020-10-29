@@ -6,7 +6,6 @@ import com.tistory.mybstory.tmdbbrowser.data.remote.api.MovieQueryType
 import com.tistory.mybstory.tmdbbrowser.data.repository.MovieRepository
 import com.tistory.mybstory.tmdbbrowser.model.Title
 import timber.log.Timber
-import java.lang.Exception
 
 class MediaPagingSource constructor(
     private val movieRepository: MovieRepository,
