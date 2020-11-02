@@ -12,3 +12,9 @@ fun String?.getOriginalImageUrl(): String {
     } else ""
 }
 
+fun String?.formatDateStringToLocalized(): String {
+    return if (!isNullOrEmpty()) {
+        val localDate = DateUtils.formatDateToLocalDate(this!!)
+        DateUtils.formatLocalDateToString(localDate)
+    } else ""
+}

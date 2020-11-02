@@ -15,7 +15,9 @@ data class Movie constructor(
     @field:Json(name = "backdrop_path")
     val backdropPath: String? = null,
     @field:Json(name = "overview")
-    val overview: String? = null
+    val overview: String? = null,
+    @field:Json(name = "release_date")
+    val releaseDate: String? = null
 ) {
     val posterUrl: String? get() = posterPath.getPosterThumbUrl()
 }

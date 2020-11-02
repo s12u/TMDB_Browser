@@ -6,6 +6,8 @@ import androidx.lifecycle.*
 import com.tistory.mybstory.tmdbbrowser.data.repository.MovieRepository
 import com.tistory.mybstory.tmdbbrowser.model.Movie
 import com.tistory.mybstory.tmdbbrowser.model.MovieImage
+import com.tistory.mybstory.tmdbbrowser.util.DateUtils
+import com.tistory.mybstory.tmdbbrowser.util.formatDateStringToLocalized
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -16,10 +18,11 @@ class MovieDetailViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     private val _movieLiveData = MutableLiveData<Movie>()
-    val movieLiveData: LiveData<Movie> get() = _movieLiveData
-
     private val _backdropLiveData = MutableLiveData<List<MovieImage>>()
+
+    val movieLiveData: LiveData<Movie> get() = _movieLiveData
     val backdropLiveData: LiveData<List<MovieImage>> get() = _backdropLiveData
+    val releaseDateLiveData: LiveData<String> get() = movieLiveData.map { it.releaseDate.formatDateStringToLocalized() }
 
     init {
         val id = handle.get<Int>("id") ?: -1
@@ -29,15 +32,15 @@ class MovieDetailViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun fetchMovie(id: Int) {
+    private fun fetchMovie(id: Int) =
         viewModelScope.launch {
             movieRepository.getMovieById(id).collect {
                 _movieLiveData.postValue(it)
             }
         }
-    }
 
-    private fun fetchMovieImages(id: Int) {
+
+    private fun fetchMovieImages(id: Int) =
         viewModelScope.launch {
             movieRepository.getMovieImages(id).collect { map ->
                 Timber.e("backdrop list exists")
@@ -46,5 +49,5 @@ class MovieDetailViewModel @ViewModelInject constructor(
                 }
             }
         }
-    }
+
 }
