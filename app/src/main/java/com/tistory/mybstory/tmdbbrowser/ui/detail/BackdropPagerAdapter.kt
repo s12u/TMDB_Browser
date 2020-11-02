@@ -10,7 +10,9 @@ import com.tistory.mybstory.tmdbbrowser.R
 import com.tistory.mybstory.tmdbbrowser.databinding.ItemBackdropBinding
 import com.tistory.mybstory.tmdbbrowser.model.MovieImage
 
-class BackdropPagerAdapter: ListAdapter<MovieImage, BackdropViewHolder>(backdropDiffUtilCallback) {
+class BackdropPagerAdapter: RecyclerView.Adapter<BackdropViewHolder>() {
+
+    private val backdropImagesList = mutableListOf<MovieImage>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BackdropViewHolder {
         val binding = DataBindingUtil.inflate<ItemBackdropBinding>(
@@ -23,18 +25,14 @@ class BackdropPagerAdapter: ListAdapter<MovieImage, BackdropViewHolder>(backdrop
     }
 
     override fun onBindViewHolder(holder: BackdropViewHolder, position: Int) {
-        holder.binding.backdrop = getItem(position)
+        holder.binding.backdrop = backdropImagesList[position]
     }
 
-    companion object {
+    override fun getItemCount() = backdropImagesList.size
 
-        val backdropDiffUtilCallback = object : DiffUtil.ItemCallback<MovieImage>() {
-            override fun areItemsTheSame(oldItem: MovieImage, newItem: MovieImage) =
-                oldItem.filePath == newItem.filePath
-
-            override fun areContentsTheSame(oldItem: MovieImage, newItem: MovieImage) =
-                oldItem == newItem
-        }
+    fun submitList(imagesList: List<MovieImage>) {
+        backdropImagesList.addAll(imagesList)
+        notifyDataSetChanged()
     }
 }
 

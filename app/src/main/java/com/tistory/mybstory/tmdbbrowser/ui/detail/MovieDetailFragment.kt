@@ -30,6 +30,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>(
             adapter = backdropPagerAdapter
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             offscreenPageLimit = 3
+            dotsIndicator.setViewPager2(this)
         }
     }
 
