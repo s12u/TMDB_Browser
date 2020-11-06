@@ -6,29 +6,56 @@ import com.tistory.mybstory.tmdbbrowser.data.remote.api.MovieQueryType
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.MovieListResponse
 import com.tistory.mybstory.tmdbbrowser.di.ApiModule.Companion.AUTH_TOKEN
 import com.tistory.mybstory.tmdbbrowser.model.Movie
-import com.tistory.mybstory.tmdbbrowser.model.MovieImage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.MovieDetailResponse
+import com.tistory.mybstory.tmdbbrowser.data.repository.mapper.toMovie
+import retrofit2.Response
 import timber.log.Timber
+import java.lang.Exception
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
     private val apiService: MovieApiService
-) : MovieRepository {
+) : MovieRepository() {
+
+    override suspend fun getMovieById(id: Int): Flow<Movie> = flow {
+        val response: Response<MovieDetailResponse>
+        try {
+            response = apiService.getMovieById(id, AUTH_TOKEN)
+        } catch (t: Throwable) {
+            Timber.e("throwable : $t")
+            throw Exception("Network error")
+        }
+
+        if (!response.isSuccessful) {
+            throw Exception(response.errorBody().toString())
+        } else {
+            if (response.body() == null) {
+                throw Exception("Body can't be null")
+            } else {
+                emit(response.body()!!.toMovie())
+            }
+        }
+    }
 
     override suspend fun getTrendingListByTypeForPaging(mediaType: MediaType, page: Int)
             : MovieListResponse? {
+        val response: Response<MovieListResponse>
+        try {
+            response = apiService.getTrendingListDailyByType(
+                mediaType.type,
+                AUTH_TOKEN,
+                page
+            )
+        } catch (t: Throwable) {
+            throw Exception("Network error")
+        }
 
-        val response = apiService.getTrendingListDailyByType(
-            mediaType.type,
-            AUTH_TOKEN,
-            page
-        )
-
-        if (response.isSuccessful) {
-            return response.body()
+        return if (!response.isSuccessful) {
+            throw IllegalStateException(response.errorBody().toString())
         } else {
-            throw IllegalStateException("Api error")
+            response.body()
         }
     }
 
@@ -36,37 +63,21 @@ class MovieRepositoryImpl @Inject constructor(
         movieQueryType: MovieQueryType,
         page: Int
     ): MovieListResponse? {
-        Timber.e("call by query type $movieQueryType")
-        val response = apiService.getMovieListByQueryType(
-            movieQueryType.type,
-            AUTH_TOKEN,
-            page
-        )
-        if (response.isSuccessful) {
-            return response.body()
-        } else {
-            throw IllegalStateException("Api error")
+        val response: Response<MovieListResponse>
+        try {
+            response = apiService.getMovieListByQueryType(
+                movieQueryType.type,
+                AUTH_TOKEN,
+                page
+            )
+        } catch (t: Throwable) {
+            throw Exception("Network error")
         }
-    }
 
-    override suspend fun getMovieById(id: Int): Flow<Movie> = flow {
-        emit(apiService.getMovieById(id, AUTH_TOKEN))
-    }
-
-    override suspend fun getMovieImages(id: Int): Flow<Map<String, List<MovieImage>>> = flow {
-        val response = apiService.getMovieImagesById(id, AUTH_TOKEN)
-        if (response.isSuccessful) {
-            response.body()?.let {
-                Timber.e("backdrop count: ${it.backdrops.size} poster count : ${it.posters.size}")
-                emit(
-                    mapOf(
-                        "backdrops" to it.backdrops,
-                        "posters" to it.posters
-                    )
-                )
-            }
+        return if (!response.isSuccessful) {
+            throw IllegalStateException(response.errorBody().toString())
         } else {
-            throw IllegalStateException("Api error")
+            response.body()
         }
     }
 

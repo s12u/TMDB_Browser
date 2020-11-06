@@ -18,17 +18,15 @@ class MovieDetailViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     private val _movieLiveData = MutableLiveData<Movie>()
-    private val _backdropLiveData = MutableLiveData<List<MovieImage>>()
 
     val movieLiveData: LiveData<Movie> get() = _movieLiveData
-    val backdropLiveData: LiveData<List<MovieImage>> get() = _backdropLiveData
+    val backdropLiveData: LiveData<List<MovieImage>> get() = movieLiveData.map { it.backdrops ?: listOf() }
     val releaseDateLiveData: LiveData<String> get() = movieLiveData.map { it.releaseDate.formatDateStringToLocalized() }
 
     init {
         val id = handle.get<Int>("id") ?: -1
         if (id > 0) {
             fetchMovie(id)
-            fetchMovieImages(id)
         }
     }
 
@@ -36,17 +34,6 @@ class MovieDetailViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             movieRepository.getMovieById(id).collect {
                 _movieLiveData.postValue(it)
-            }
-        }
-
-
-    private fun fetchMovieImages(id: Int) =
-        viewModelScope.launch {
-            movieRepository.getMovieImages(id).collect { map ->
-                Timber.e("backdrop list exists")
-                map["backdrops"]?.let { backdropList ->
-                    _backdropLiveData.postValue(backdropList)
-                }
             }
         }
 

@@ -1,6 +1,6 @@
 package com.tistory.mybstory.tmdbbrowser.data.remote.api
 
-import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.ImageResponse
+import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.MovieDetailResponse
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.MovieListResponse
 import com.tistory.mybstory.tmdbbrowser.model.Movie
 import retrofit2.Response
@@ -27,14 +27,9 @@ interface MovieApiService {
     @GET("/3/movie/{movie_id}")
     suspend fun getMovieById(
         @Path("movie_id") movieId: Int,
-        @Query("api_key") token: String
-    ): Movie
-
-    @GET("/3/movie/{movie_id}/images")
-    suspend fun getMovieImagesById(
-        @Path("movie_id") movieId: Int,
-        @Query("api_key") token: String
-    ): Response<ImageResponse>
+        @Query("api_key") token: String,
+        @Query("append_to_response") appendToResponse: String = "images"
+    ): Response<MovieDetailResponse>
 }
 
 sealed class MediaType {
