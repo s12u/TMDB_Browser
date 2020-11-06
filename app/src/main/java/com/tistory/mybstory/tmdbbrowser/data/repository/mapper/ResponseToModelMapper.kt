@@ -21,6 +21,7 @@ fun MovieDetailResponse.toMovie(): Movie =
         posterPath = this.posterPath,
         overview = this.overview,
         releaseDate = this.releaseDate,
-        posters = images?.get("posters") ?: listOf(),
-        backdrops = images?.get("backdrops") ?: listOf()
+        posters = this.images?.get("posters") ?: listOf(),
+        backdrops = this.images?.get("backdrops") ?: listOf(),
+        genres = this.genres ?: listOf()
     )

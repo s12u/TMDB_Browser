@@ -7,6 +7,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import com.tistory.mybstory.tmdbbrowser.R
+import com.tistory.mybstory.tmdbbrowser.model.Genre
 import com.tistory.mybstory.tmdbbrowser.model.MovieImage
 import com.tistory.mybstory.tmdbbrowser.ui.detail.BackdropPagerAdapter
 import java.io.InvalidClassException
@@ -30,4 +34,16 @@ fun bindMovieImagesOnPager(view: ViewPager2, imageList: List<MovieImage>?) {
         else -> throw InvalidClassException("Not a pager adapter")
     }
     imageList?.also { adapter.submitList(it) }
+}
+
+@BindingAdapter("app:genreList")
+fun bindGenresListOnChipGroup(chipGroup: ChipGroup, genres: List<Genre>?) {
+    genres?.let {
+        for (genre in genres) {
+            Chip(chipGroup.context).apply {
+                text = genre.name
+                setTextAppearance(R.style.GenreChipTextStyle)
+            }.also { chipGroup.addView(it) }
+        }
+    }
 }
