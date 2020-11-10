@@ -29,6 +29,7 @@ class MediaPagingSource constructor(
                         page
                     )
             }
+            println("page: $page, response: $response")
 
             LoadResult.Page(
                 data = response?.results ?: listOf(),

@@ -12,11 +12,19 @@ import com.tistory.mybstory.tmdbbrowser.data.remote.MediaPagingSource
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.MediaType
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.MovieQueryType
 import com.tistory.mybstory.tmdbbrowser.data.repository.MovieRepository
+import com.tistory.mybstory.tmdbbrowser.di.MainDispatcher
+import com.tistory.mybstory.tmdbbrowser.util.viewModelScope
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 class MainViewModel @ViewModelInject constructor(
     private val movieRepository: MovieRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle
+    @MainDispatcher private val coroutineDispatcher: CoroutineDispatcher? = null,
+    @Assisted private val savedStateHandle: SavedStateHandle? = null
 ) : ViewModel() {
+
+    private val scope = viewModelScope(coroutineDispatcher)
 
     val trendingMoviesFlow = Pager(
         PagingConfig(pageSize = 8, initialLoadSize = 10)
@@ -26,7 +34,7 @@ class MainViewModel @ViewModelInject constructor(
             MediaType.MOVIE(),
             MovieQueryType.Trending()
         )
-    }.flow.cachedIn(viewModelScope)
+    }.flow.cachedIn(scope)
 
     val popularMoviesFlow = Pager(
         PagingConfig(pageSize = 8, initialLoadSize = 10)
@@ -36,7 +44,7 @@ class MainViewModel @ViewModelInject constructor(
             MediaType.MOVIE(),
             MovieQueryType.Popular()
         )
-    }.flow.cachedIn(viewModelScope)
+    }.flow.cachedIn(scope)
 
     val topRatedMoviesFlow = Pager(
         PagingConfig(pageSize = 8, initialLoadSize = 10)
@@ -46,5 +54,5 @@ class MainViewModel @ViewModelInject constructor(
             MediaType.MOVIE(),
             MovieQueryType.TopRated()
         )
-    }.flow.cachedIn(viewModelScope)
+    }.flow.cachedIn(scope)
 }

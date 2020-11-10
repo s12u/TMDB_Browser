@@ -1,5 +1,11 @@
 package com.tistory.mybstory.tmdbbrowser.util
 
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+
 fun String?.getPosterThumbUrl(): String {
     return if (!isNullOrEmpty()) {
         "https://image.tmdb.org/t/p/w500$this"
@@ -18,3 +24,6 @@ fun String?.formatDateStringToLocalized(): String {
         DateUtils.formatLocalDateToString(localDate)
     } else ""
 }
+
+fun ViewModel.viewModelScope(dispatcher: CoroutineDispatcher?) =
+    if (dispatcher != null) CoroutineScope(dispatcher) else this.viewModelScope
