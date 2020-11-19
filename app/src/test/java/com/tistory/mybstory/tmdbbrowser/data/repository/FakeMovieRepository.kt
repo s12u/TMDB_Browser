@@ -22,7 +22,8 @@ class FakeMovieRepository : MovieRepository() {
         movieQueryType: MovieQueryType,
         page: Int
     ): MovieListResponse? {
-        TODO("Not yet implemented")
+        delay(1000)
+        return MovieListResponse(1, 1, dummyTrendingMovieList)
     }
 
     override suspend fun getMovieById(id: Int): Flow<Movie> {
