@@ -3,6 +3,7 @@ package com.tistory.mybstory.tmdbbrowser.ui.detail
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.tistory.mybstory.tmdbbrowser.R
 import com.tistory.mybstory.tmdbbrowser.base.ui.BaseFragment
@@ -20,6 +21,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>(
         super.onViewCreated(view, savedInstanceState)
         with (binding) {
             viewModel = movieDetailViewModel
+            imageBack.setOnClickListener { findNavController().navigateUp() }
         }
         initBackdropPager()
     }

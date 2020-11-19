@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.tistory.mybstory.tmdbbrowser.util.ExtensionsKt"/>
+        <variable
+            name="title"
+            type="com.tistory.mybstory.tmdbbrowser.model.Title" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/img_poster"
+            android:layout_width="100dp"
+            android:layout_height="130dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:url="@{title.posterUrl}"/>
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/img_poster"
+            app:layout_constraintTop_toTopOf="@id/img_poster"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{title.title}"
+            tools:text="Title"/>
+
+        <TextView
+            android:id="@+id/release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/title_text"
+            app:layout_constraintTop_toBottomOf="@id/title_text"
+            android:layout_marginTop="8dp"
+            android:text="@{ExtensionsKt.formatDateStringToLocalized(title.releaseDate)}"
+            tools:text="Release date"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

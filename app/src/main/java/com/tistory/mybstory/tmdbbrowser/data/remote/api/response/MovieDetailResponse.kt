@@ -6,7 +6,7 @@ import com.tistory.mybstory.tmdbbrowser.model.Genre
 import com.tistory.mybstory.tmdbbrowser.model.MovieImage
 
 @JsonClass(generateAdapter = true)
-data class MovieDetailResponse constructor(
+data class MovieDetailResponse (
     @field:Json(name = "id")
     val id: Int,
     @field:Json(name = "title")

@@ -3,16 +3,15 @@ package com.tistory.mybstory.tmdbbrowser.data.repository
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.MediaType
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.MovieApiService
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.MovieQueryType
+import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.MovieDetailResponse
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.MovieListResponse
+import com.tistory.mybstory.tmdbbrowser.data.repository.mapper.toMovie
 import com.tistory.mybstory.tmdbbrowser.di.ApiModule.Companion.AUTH_TOKEN
 import com.tistory.mybstory.tmdbbrowser.model.Movie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import com.tistory.mybstory.tmdbbrowser.data.remote.api.response.MovieDetailResponse
-import com.tistory.mybstory.tmdbbrowser.data.repository.mapper.toMovie
 import retrofit2.Response
 import timber.log.Timber
-import java.lang.Exception
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
@@ -68,6 +67,28 @@ class MovieRepositoryImpl @Inject constructor(
             response = apiService.getMovieListByQueryType(
                 movieQueryType.type,
                 AUTH_TOKEN,
+                page
+            )
+        } catch (t: Throwable) {
+            throw Exception("Network error")
+        }
+
+        return if (!response.isSuccessful) {
+            throw IllegalStateException(response.errorBody().toString())
+        } else {
+            response.body()
+        }
+    }
+
+    override suspend fun getMoviesListByKeywordForPaging(
+        query: String,
+        page: Int
+    ): MovieListResponse? {
+        val response: Response<MovieListResponse>
+        try {
+            response = apiService.queryMovieByKeyword(
+                AUTH_TOKEN,
+                query,
                 page
             )
         } catch (t: Throwable) {

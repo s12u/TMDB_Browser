@@ -10,6 +10,8 @@ data class Title constructor(
     val id: Int,
     @field:Json(name = "title")
     val title: String,
+    @field:Json(name = "release_date")
+    val releaseDate: String,
     @field:Json(name = "poster_path")
     val posterPath: String? = null
 ) {

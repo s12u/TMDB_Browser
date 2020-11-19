@@ -3,8 +3,6 @@ package com.tistory.mybstory.tmdbbrowser.ui.detail
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tistory.mybstory.tmdbbrowser.R
 import com.tistory.mybstory.tmdbbrowser.databinding.ItemBackdropBinding

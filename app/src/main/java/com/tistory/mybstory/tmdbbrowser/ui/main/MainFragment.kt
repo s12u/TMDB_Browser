@@ -29,10 +29,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         observeTrendingMoviesListsFlow()
         observePopularMoviesListsFlow()
         observeTopRatedMoviesListsFlow()
+
+        binding.search.setOnClickListener {
+            findNavController().navigate(R.id.moveToMovieSearchFragment)
+        }
     }
 
     private fun handleItemClick(item: Title) =
-        MainFragmentDirections.mainFragmentToMovieDetailFragment(item.id)
+        MainFragmentDirections.actionMoveToMovieDetailFragment(item.id)
             .also { findNavController().navigate(it) }
 
 

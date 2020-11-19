@@ -16,21 +16,55 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:paddingTop="16dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
+
+            <LinearLayout
+                android:id="@+id/search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search_24px"
+                    android:layout_gravity="center_vertical"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/corner_all_8" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/header_trending"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:layout_marginTop="24dp"
+                android:padding="8dp"
                 android:text="@string/header_text_trending"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/search" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_trending_movies"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -42,8 +76,11 @@
                 android:id="@+id/header_popular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
                 android:text="@string/header_text_popular"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/list_trending_movies" />
 
@@ -52,6 +89,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,8 +100,11 @@
                 android:id="@+id/header_top_rated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
                 android:text="@string/header_text_top_rated"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/list_popular_movies" />
 
@@ -72,6 +113,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

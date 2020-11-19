@@ -6,11 +6,9 @@ import androidx.lifecycle.*
 import com.tistory.mybstory.tmdbbrowser.data.repository.MovieRepository
 import com.tistory.mybstory.tmdbbrowser.model.Movie
 import com.tistory.mybstory.tmdbbrowser.model.MovieImage
-import com.tistory.mybstory.tmdbbrowser.util.DateUtils
 import com.tistory.mybstory.tmdbbrowser.util.formatDateStringToLocalized
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class MovieDetailViewModel @ViewModelInject constructor(
     private val movieRepository: MovieRepository,

@@ -11,5 +11,7 @@ abstract class MovieRepository {
 
     abstract suspend fun getMoviesListByQueryTypeForPaging(movieQueryType: MovieQueryType, page: Int): MovieListResponse?
 
+    abstract suspend fun getMoviesListByKeywordForPaging(query: String, page: Int): MovieListResponse?
+
     abstract suspend fun getMovieById(id: Int): Flow<Movie>
 }

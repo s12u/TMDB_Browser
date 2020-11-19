@@ -5,17 +5,16 @@ import com.tistory.mybstory.tmdbbrowser.data.remote.api.MediaType
 import com.tistory.mybstory.tmdbbrowser.data.remote.api.MovieQueryType
 import com.tistory.mybstory.tmdbbrowser.data.repository.MovieRepository
 import com.tistory.mybstory.tmdbbrowser.model.Title
-import timber.log.Timber
 
 class MediaPagingSource constructor(
     private val movieRepository: MovieRepository,
     private val mediaType: MediaType,
-    private val queryType: MovieQueryType
+    private val queryType: MovieQueryType,
+    private val query: String = ""
 ) : PagingSource<Int, Title>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Title> {
         return try {
-            Timber.e("query type : $queryType")
             val page = params.key ?: STARTING_PAGE_INDEX
             val response = when (queryType) {
                 is MovieQueryType.Trending ->
@@ -28,6 +27,12 @@ class MediaPagingSource constructor(
                         queryType,
                         page
                     )
+                is MovieQueryType.Query -> {
+                    movieRepository.getMoviesListByKeywordForPaging(
+                        query,
+                        page
+                    )
+                }
             }
 
             LoadResult.Page(

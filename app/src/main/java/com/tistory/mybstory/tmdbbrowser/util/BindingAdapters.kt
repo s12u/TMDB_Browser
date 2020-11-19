@@ -1,7 +1,8 @@
 package com.tistory.mybstory.tmdbbrowser.util
 
-import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.BindingAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -15,14 +16,15 @@ import com.tistory.mybstory.tmdbbrowser.model.MovieImage
 import com.tistory.mybstory.tmdbbrowser.ui.detail.BackdropPagerAdapter
 import java.io.InvalidClassException
 
-@BindingAdapter("app:url", "app:errorDrawable", requireAll = false)
-fun bindImageView(view: ImageView, url: String?, error: Drawable?) {
+@BindingAdapter("app:url", requireAll = false)
+fun bindImageView(view: ImageView, url: String?) {
     val crossFadeTransition = DrawableTransitionOptions.withCrossFade(300)
 
     Glide.with(view)
         .load(url)
         .transition(crossFadeTransition)
-        .error(error)
+        .placeholder(R.drawable.bg_image_placeholder)
+        .error(R.drawable.bg_no_image)
         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .into(view)
 }
@@ -43,7 +45,31 @@ fun bindGenresListOnChipGroup(chipGroup: ChipGroup, genres: List<Genre>?) {
             Chip(chipGroup.context).apply {
                 text = genre.name
                 setTextAppearance(R.style.GenreChipTextStyle)
+                setChipBackgroundColorResource(R.color.colorAccent)
             }.also { chipGroup.addView(it) }
         }
     }
+}
+
+@BindingAdapter("app:queryHandler")
+fun bindQueryOnSearchView(view: SearchView, handler: (String?) -> Unit) {
+    view.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            return false
+        }
+
+        override fun onQueryTextChange(newText: String?): Boolean {
+            handler.invoke(newText)
+            return false
+        }
+    })
+
+}
+
+@BindingAdapter("app:ellipsizedText")
+fun bindEllipsizedText(view: TextView, text: String) {
+    val result = if (text.length > 25) {
+        text.dropLast(3).plus("...")
+    } else text
+    view.text = result
 }
