@@ -31,7 +31,7 @@ class MovieSearchFragment : BaseFragment<FragmentSearchMovieBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with (binding) {
+        with(binding) {
             viewModel = vm
         }
         initUI()
@@ -46,12 +46,12 @@ class MovieSearchFragment : BaseFragment<FragmentSearchMovieBinding>(
     }
 
     private fun observeBottomSheetBehavior() = launch {
-            vm.bottomSheetStateFlow.collect {
-                bottomSheetBehavior.state = it
-            }
+        vm.bottomSheetStateFlow.collect {
+            bottomSheetBehavior.state = it
+        }
     }
 
-    private fun initUI() = with (binding){
+    private fun initUI() = with(binding) {
         bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet as View).apply {
             peekHeight = requireActivity().actionBarHeight()
             this.isFitToContents = false
@@ -67,11 +67,10 @@ class MovieSearchFragment : BaseFragment<FragmentSearchMovieBinding>(
 
     }
 
-    private fun handleItemClick(item: Title) =
-        MovieSearchFragmentDirections.actionMoveToMovieDetailFragment(item.id)
-            .also {
-                hideKeyboard()
-                findNavController().navigate(it)
-            }
+    private fun handleItemClick(item: Title) {
+        hideKeyboard()
+        val action = MovieSearchFragmentDirections.actionMoveToMovieDetailFragment(item.id)
+        findNavController().navigate(action)
+    }
 
 }

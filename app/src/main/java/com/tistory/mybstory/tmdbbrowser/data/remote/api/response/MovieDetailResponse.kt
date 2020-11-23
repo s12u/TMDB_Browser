@@ -22,5 +22,7 @@ data class MovieDetailResponse (
     @field:Json(name = "images")
     val images: Map<String, List<MovieImage>>? = null,
     @field:Json(name = "genres")
-    val genres: List<Genre>? = null
+    val genres: List<Genre>? = null,
+    @field:Json(name = "runtime")
+    val runtime: Int? = null
 )

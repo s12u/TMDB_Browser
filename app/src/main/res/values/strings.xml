@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">TMDB Browser</string>
 
-
+    <!-- Headers -->
     <string name="header_text_trending">Trending</string>
     <string name="header_text_popular">Popular</string>
     <string name="header_text_top_rated">Top rated</string>
+
+    <!-- Labels -->
+    <string name="label_overview">Overview</string>
+    <string name="label_runtime">Runtime</string>
+
+    <string name="minute_format_runtime">%d min</string>
 </resources>

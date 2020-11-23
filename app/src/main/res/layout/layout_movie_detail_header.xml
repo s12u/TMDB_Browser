@@ -58,22 +58,53 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/movie_poster"
-                app:layout_constraintBottom_toTopOf="@id/movie_overview"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 app:genreList="@{viewModel.movieLiveData.genres}" />
+
+            <TextView
+                android:id="@+id/overview_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/genres_group"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:textSize="18sp"
+                android:text="@string/label_overview" />
 
             <TextView
                 android:id="@+id/movie_overview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.movieLiveData.overview}"
+                app:layout_constraintStart_toStartOf="@id/overview_label"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genres_group"
+                app:layout_constraintTop_toBottomOf="@id/overview_label"
                 app:layout_constrainedWidth="true"
                 android:padding="16dp"/>
+
+            <TextView
+                android:id="@+id/runtime_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/movie_overview"
+                app:layout_constraintTop_toBottomOf="@id/movie_overview"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:text="@string/label_runtime" />
+
+            <TextView
+                android:id="@+id/movie_runtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/runtime_label"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="12dp"
+                android:text="@{@string/minute_format_runtime(viewModel.movieLiveData.runtime)}"
+                tools:text="120 min"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

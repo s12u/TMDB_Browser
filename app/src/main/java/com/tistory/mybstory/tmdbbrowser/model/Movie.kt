@@ -13,8 +13,8 @@ data class Movie constructor(
     val releaseDate: String? = null,
     val posters: List<MovieImage>? = null,
     val backdrops: List<MovieImage>? = null,
-    val genres: List<Genre>? = null
-
+    val genres: List<Genre>? = null,
+    val runtime: Int = 0
 ) {
     val posterUrl: String? get() = posterPath.getPosterThumbUrl()
 }

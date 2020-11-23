@@ -9,7 +9,7 @@ fun MovieListResponse.toMoviesList(): List<Movie> =
         Movie(
             id = it.id,
             title = it.title,
-            posterPath = it.posterPath
+            posterPath = it.posterPath,
         )
     }
 
@@ -23,5 +23,6 @@ fun MovieDetailResponse.toMovie(): Movie =
         releaseDate = this.releaseDate,
         posters = this.images?.get("posters") ?: listOf(),
         backdrops = this.images?.get("backdrops") ?: listOf(),
-        genres = this.genres ?: listOf()
+        genres = this.genres ?: listOf(),
+        runtime = this.runtime ?: 0
     )
